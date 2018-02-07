@@ -13,12 +13,16 @@ Polizia is a minimal clone of the popular Pundit gem.
 require 'polizia'
 
 class Account
-  # ...
+  attr_accessor :user
+
+  def initialize(user:)
+    @user = user
+  end
 end
 
 class AccountPolicy < Polizia
   def create?
-    false # super also returns false
+    user.guest?
   end
 
   def update?(account)
@@ -31,7 +35,9 @@ class AccountPolicy < Polizia
 end
 
 class User
-  # ...
+  def guest?
+    false
+  end
 end
 
 user = User.new
